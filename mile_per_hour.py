@@ -1,12 +1,14 @@
-#velo is in miles per hour
+#velo is in miles per hour, output is in feet
 
 from math import sin, cos, radians as r
+-------------------------------------------------------------------!
+def mph_to_fps(velo):
+	return velo * 1.467
 -------------------------------------------------------------------!
 #time until ball hits its apex
 #returns seconds
 def apexTime(velo, angle):
-	g = 22 #mph/s
-	return velo * sin(r(angle)) / g
+	return velo * sin(r(angle)) / 32.17 #g = 32.17 f/s
 -------------------------------------------------------------------!
 #horizontal velocity
 #returns m/s
@@ -16,8 +18,7 @@ def Vx(velo, angle):
 #virtical velocity at time t
 #returns m/s
 def Vy(velo, angle, t):
-	g = 22	#mph/s
-	return velo * sin(r(angle)) - g * t
+	return velo * sin(r(angle)) - 32.17 * t #g = 32.17 f/s
 -------------------------------------------------------------------!
 #distance at time t
 #for distance at the apex, use apexTime(velo, angle) as t
@@ -29,7 +30,7 @@ def x(velo, angle, t):
 #height at time t
 #returns meters
 def y(velo, angle, t):
-	g = 22	#mph/s
+	g = 32.17 #f/s
 	return velo * sin(r(angle)) * t - (0.5) * g * t**2
 -------------------------------------------------------------------
 #the maximum height given a velocity and angle
@@ -40,13 +41,12 @@ def maxHeight(velo, angle):
 #total time until ball hits the ground
 #returns seconds
 def totalTime(velo, angle):
-	g = 22	#mph/s
-	return 2 * velo * sin(r(angle)) / g
+	return 2 * apexTime(velo, angle)
 -------------------------------------------------------------------!
 #total distance travelled when ball hits the ground
 #returns meters
 def totalDistance(velo, angle):
-	return velo * cos(r(angle)) * totalTime(velo, angle)
+	return x(velo, angle, totalTime(velo, angle))
 
 
 #test it out!
